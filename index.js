@@ -118,35 +118,35 @@ app.post('/users/login', async (req, res) => {
     return;
 });
 
-/*
-app.put('/books/:id', async (req, res) => {
-    const { id } = req.params;
-    const { book } = req.body;
+app.put('/users/:accountId', async (req, res) => {
+    const { accountId } = req.params;
+    const { user } = req.body;
 
     const conn = mongoose.createConnection(connectionConfig);
-    const Book = conn.model('Book', bookSchema);
 
-    book.updateAt = new Date;
-    const books = await Book.findByIdAndUpdate(id, book);
+    const User = conn.model('User', userSchema);
+
+    user.updateAt = new Date;
+    const newUser = await User.findOneAndUpdate(accountId, user);
 
     await conn.destroy();
-    res.status(200).json({ message: "ok", data: { books } });
+    res.status(200).json({ message: "ok", data: { user : newUser } });
     return;
 });
 
-app.delete('/books/:id', async (req, res) => {
-    const { id } = req.params;
+app.delete('/users/:accountId', async (req, res) => {
+    const { accountId } = req.params;
 
     const conn = mongoose.createConnection(connectionConfig);
-    const Book = conn.model('Book', bookSchema);
+    const User = conn.model('User', userSchema);
 
-    const book = await Book.findByIdAndRemove(id);
+    const user = await User.findOneAndRemove(accountId);
 
     await conn.destroy();
-    res.status(200).json({ message: "ok", data: { book } });
+    res.status(200).json({ message: "ok", data: { user } });
     return;
 });
-*/
+
 
 const httpServer = http.createServer(app);
 
