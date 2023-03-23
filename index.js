@@ -127,7 +127,7 @@ app.put('/users/:accountId', async (req, res) => {
     const User = conn.model('User', userSchema);
 
     user.updateAt = new Date;
-    const newUser = await User.findOneAndUpdate(accountId, user);
+    const newUser = await User.findOneAndUpdate({accountId}, user);
 
     await conn.destroy();
     res.status(200).json({ message: "ok", data: { user : newUser } });
