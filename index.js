@@ -140,7 +140,7 @@ app.delete('/users/:accountId', async (req, res) => {
     const conn = mongoose.createConnection(connectionConfig);
     const User = conn.model('User', userSchema);
 
-    const user = await User.findOneAndRemove(accountId);
+    const user = await User.findOneAndRemove({accountId});
 
     await conn.destroy();
     res.status(200).json({ message: "ok", data: { user } });
